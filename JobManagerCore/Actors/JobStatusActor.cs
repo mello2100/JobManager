@@ -4,11 +4,11 @@ using System;
 
 namespace JobManagerCore.Actors
 {
-    public class JobsStatusActor : ReceiveActor
+    public class JobStatusActor : ReceiveActor
     {
         private string CurrentStatus { get; set; }
 
-        public JobsStatusActor()
+        public JobStatusActor()
         {
             StatusHubClient.Conectar();
 
@@ -23,13 +23,13 @@ namespace JobManagerCore.Actors
 
         public static Props CreateProps()
         {
-            return Props.Create(() => new JobsStatusActor());
+            return Props.Create(() => new JobStatusActor());
         }
 
         protected override void PreStart()
         {
             CurrentStatus = "Inicial";
-            Console.WriteLine($"Starting JobsStatusActor - {CurrentStatus}");
+            Console.WriteLine($"Starting JobStatusActor - {CurrentStatus}");
         }
 
         #region Messages

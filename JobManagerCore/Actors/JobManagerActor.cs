@@ -7,11 +7,11 @@ namespace JobManagerCore.Actors
     public class JobManagerActor : ReceiveActor
     {
 
-        private IActorRef JobsStatusActor { get; }
+        private IActorRef JobStatusActor { get; }
 
-        public JobManagerActor(IActorRef jobsStatusActor)
+        public JobManagerActor(IActorRef jobStatusActor)
         {
-            JobsStatusActor = jobsStatusActor;
+            JobStatusActor = jobStatusActor;
 
 
             Receive<WorkerActor.RequestForJobMessage>(msg => ProcessRequestForJobMessage(msg));
@@ -26,7 +26,7 @@ namespace JobManagerCore.Actors
 
             //TODO: remover
             //Console.WriteLine($"..................................{Sender.Path.Name} -> Notificação -> {jobId} / {message} / {tries}");
-            //JobsStatusActor.Tell(new UpdateJobStatusMessage($"..................................{Sender.Path.Name} -> Notificação -> {jobId} / {message} / {tries}"));
+            //JobStatusActor.Tell(new UpdateJobStatusMessage($"..................................{Sender.Path.Name} -> Notificação -> {jobId} / {message} / {tries}"));
         }
 
         private void ProcessRequestForJobMessage(WorkerActor.RequestForJobMessage msg)
@@ -35,14 +35,14 @@ namespace JobManagerCore.Actors
 
             //TODO: remover
             Console.WriteLine($"{Sender.Path.Name} -> Solicitação -> {job.JobId} / {job.TryExecutionCount}");
-            JobsStatusActor.Tell(new JobsStatusActor.UpdateJobStatusMessage($"{Sender.Path.Name} -> Solicitação -> {job.JobId} / {job.TryExecutionCount}"));
+            JobStatusActor.Tell(new JobStatusActor.UpdateJobStatusMessage($"{Sender.Path.Name} -> Solicitação -> {job.JobId} / {job.TryExecutionCount}"));
 
             Sender.Tell(job);
         }
 
-        public static Props CreateProps(IActorRef jobsStatusActor)
+        public static Props CreateProps(IActorRef jobStatusActor)
         {
-            return Props.Create(() => new JobManagerActor(jobsStatusActor));
+            return Props.Create(() => new JobManagerActor(jobStatusActor));
         }
 
         #region Private methods

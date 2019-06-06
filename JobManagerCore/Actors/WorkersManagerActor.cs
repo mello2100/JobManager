@@ -11,7 +11,7 @@ namespace JobManagerCore.Actors
 
         public WorkersManagerActor(IActorRef jobManagerActor)
         {
-            WorkersBroadcastPool = Context.ActorOf(WorkerActor.CreateProps(jobManagerActor).WithRouter(new BroadcastPool(10)));
+            WorkersBroadcastPool = Context.ActorOf(WorkerActor.CreateProps(jobManagerActor).WithRouter(new BroadcastPool(2)));
         }
 
         public static Props CreateProps(IActorRef jobManagerActor)

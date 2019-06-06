@@ -12,8 +12,8 @@ namespace JobManagerConsole
 
             using (var RootActorSystem = ActorSystem.Create("rootActorSystem"))
             {
-                IActorRef jobsStatusActor = RootActorSystem.ActorOf(JobsStatusActor.CreateProps(), "jobsStatusActor");
-                IActorRef jobsManagerActor = RootActorSystem.ActorOf(JobManagerActor.CreateProps(jobsStatusActor), "jobManagerActor");
+                IActorRef jobStatusActor = RootActorSystem.ActorOf(JobStatusActor.CreateProps(), "jobStatusActor");
+                IActorRef jobsManagerActor = RootActorSystem.ActorOf(JobManagerActor.CreateProps(jobStatusActor), "jobManagerActor");
                 IActorRef workersManagerActor = RootActorSystem.ActorOf(WorkersManagerActor.CreateProps(jobsManagerActor), "workersManagerActor");
                 Console.ReadKey();
             }

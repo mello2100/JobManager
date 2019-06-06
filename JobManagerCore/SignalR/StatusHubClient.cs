@@ -6,7 +6,7 @@ namespace JobManagerCore.SignalR
 {
     public static class StatusHubClient
     {
-        private const string ServerURI = "http://localhost:53008/statusHub";
+        private const string ServerURI = "http://localhost:55457/statusHub";
 
         private static HubConnection Connection { get; set; }
 

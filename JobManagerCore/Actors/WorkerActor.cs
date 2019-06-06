@@ -73,7 +73,7 @@ namespace JobManagerCore.Actors
 
         private JobExecutionResponse ExecuteJob(Job job)
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(20000);
             var executionResponseData = new JobExecutionResponseData(JobExecutionReponseStatus.OK, "{}", "OK");
             return new JobExecutionResponse(job, executionResponseData);
         }
